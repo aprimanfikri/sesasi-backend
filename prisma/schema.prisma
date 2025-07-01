@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"
+}
+
+enum UserRole {
+  ADMIN
+  VERIFICATOR
+  USER
+}
+
+enum PermissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REVISED
+  CANCELLED
+}
+
+model User {
+  id                  String       @id @default(uuid())
+  name                String
+  email               String       @unique
+  password            String
+  role                UserRole     @default(USER)
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  createdPermissions  Permission[] @relation("PermissionCreator")
+  verifiedPermissions Permission[] @relation("PermissionVerificator")
+}
+
+model Permission {
+  id                 String           @id @default(uuid())
+  title              String
+  content            String
+  details            String
+  status             PermissionStatus @default(PENDING)
+  user               User             @relation("PermissionCreator", fields: [userId], references: [id])
+  userId             String
+  verificator        User?            @relation("PermissionVerificator", fields: [verificatorId], references: [id])
+  verificatorId      String?
+  verificatorComment String?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+}

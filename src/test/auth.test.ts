@@ -1,0 +1,103 @@
+import request from 'supertest';
+import app from '../app';
+import { ADMIN_EMAIL, ADMIN_PASSWORD } from '../utils/env';
+
+let token: string;
+
+describe('Register User', () => {
+  it('Should return 400 Name must not be more than 50 characters long', async () => {
+    const user = {
+      name: 'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do',
+      email: `${Date.now().toString()}@gmail.com`,
+      password: Date.now().toString(),
+    };
+    const response = await request(app)
+      .post('/api/v1/auth/register')
+      .send(user);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe(
+      'Name must not be more than 50 characters long'
+    );
+  }, 15000);
+
+  it('Should return 409 Email already in use', async () => {
+    const user = {
+      name: 'Admin',
+      email: ADMIN_EMAIL,
+      password: ADMIN_PASSWORD,
+    };
+    const response = await request(app)
+      .post('/api/v1/auth/register')
+      .send(user);
+    expect(response.status).toBe(409);
+    expect(response.body.message).toBe('Email already in use');
+  }, 15000);
+
+  it('Should return 201 User register successfully', async () => {
+    const user = {
+      name: Date.now().toString(),
+      email: `${Date.now().toString()}@gmail.com`,
+      password: Date.now().toString(),
+    };
+    const response = await request(app)
+      .post('/api/v1/auth/register')
+      .send(user);
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('User register successfully');
+  }, 15000);
+});
+
+describe('Login User', () => {
+  it('Should return 400 Password must be at least 8 characters long', async () => {
+    const user = {
+      email: ADMIN_EMAIL,
+      password: 'asd',
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe(
+      'Password must be at least 8 characters long'
+    );
+  }, 15000);
+
+  it('Should return 404 Email not found', async () => {
+    const user = {
+      email: 'test@gmail.com',
+      password: ADMIN_PASSWORD,
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Email not found');
+  }, 15000);
+
+  it('Should return 400 Invalid Password', async () => {
+    const user = {
+      email: ADMIN_EMAIL,
+      password: 'asdasdasdasd',
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Invalid Password');
+  }, 15000);
+
+  it('Should return 200 User login successfully', async () => {
+    const user = {
+      email: ADMIN_EMAIL,
+      password: ADMIN_PASSWORD,
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('User login successfully');
+    token = response.body.data.token;
+  }, 15000);
+});
+
+describe('Check User', () => {
+  it('Should return 200 Authenticated successfully', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth')
+      .set('Authorization', `Bearer ${token}`);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Authenticated successfully');
+  }, 15000);
+});
