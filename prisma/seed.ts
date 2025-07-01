@@ -11,6 +11,7 @@ const main = async () => {
       name: 'Admin',
       email: process.env.ADMIN_EMAIL as string,
       password: hash,
+      role: 'ADMIN',
     },
   });
 
