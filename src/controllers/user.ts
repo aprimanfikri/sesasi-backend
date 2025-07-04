@@ -4,7 +4,7 @@ import ApiError from '../utils/error';
 import { hashSync } from 'bcryptjs';
 import { createUserSchema, updateUserSchema } from '../validations/user';
 
-export const getAll = async (_req: Request, res: Response) => {
+export const getAllUsers = async (_req: Request, res: Response) => {
   const users = await prisma.user.findMany({
     select: {
       id: true,
@@ -20,14 +20,49 @@ export const getAll = async (_req: Request, res: Response) => {
     },
   });
 
-  res.json({
+  res.status(200).json({
     success: true,
     message: 'Users fetched successfully',
     data: { users },
   });
 };
 
-export const create = async (
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        isVerified: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    if (!user) {
+      throw new ApiError('User not found', 404);
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'User fetched successfully',
+      data: { user },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -78,7 +113,7 @@ export const create = async (
   }
 };
 
-export const update = async (
+export const updateUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -86,10 +121,6 @@ export const update = async (
   const { id } = req.params;
 
   try {
-    const { name, email, password, role, isVerified } = updateUserSchema.parse(
-      req.body
-    );
-
     const user = await prisma.user.findUnique({
       where: { id },
     });
@@ -97,6 +128,10 @@ export const update = async (
     if (!user) {
       throw new ApiError('User not found', 404);
     }
+
+    const { name, email, password, role, isVerified } = updateUserSchema.parse(
+      req.body
+    );
 
     if (email && email !== user.email) {
       const existingEmail = await prisma.user.findUnique({
@@ -136,7 +171,7 @@ export const update = async (
       },
     });
 
-    res.json({
+    res.status(200).json({
       success: true,
       message: 'User updated successfully',
       data: { user: updatedUser },
@@ -146,42 +181,7 @@ export const update = async (
   }
 };
 
-export const getById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const { id } = req.params;
-
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        isVerified: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
-
-    if (!user) {
-      throw new ApiError('User not found', 404);
-    }
-
-    res.json({
-      success: true,
-      message: 'User fetched successfully',
-      data: { user },
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const remove = async (
+export const deleteUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -201,7 +201,7 @@ export const remove = async (
       where: { id },
     });
 
-    res.json({
+    res.status(200).json({
       success: true,
       message: 'User deleted successfully',
     });

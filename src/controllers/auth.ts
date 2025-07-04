@@ -6,7 +6,7 @@ import { hashSync, compareSync } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../utils/env';
 
-export const register = async (
+export const registerUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -45,7 +45,7 @@ export const register = async (
   }
 };
 
-export const login = async (
+export const loginUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -85,7 +85,7 @@ export const login = async (
   }
 };
 
-export const check = async (req: Request, res: Response) => {
+export const checkUser = async (req: Request, res: Response) => {
   const user = req.user;
   res.status(200).json({
     success: true,

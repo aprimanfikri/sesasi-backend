@@ -1,13 +1,23 @@
 import express from 'express';
-import { create, getAll, getById, remove, update } from '../controllers/user';
 import authenticate from '../middlewares/authenticate';
 import { isAdmin } from '../middlewares/role';
+import {
+  createUser,
+  deleteUser,
+  getAllUsers,
+  getUserById,
+  updateUser,
+} from '../controllers/user';
 
 const user = express.Router();
 
 user.use(authenticate);
 
-user.route('/').get(getAll).post(isAdmin, create);
-user.route('/:id').get(getById).patch(isAdmin, update).delete(isAdmin, remove);
+user.route('/').get(getAllUsers).post(isAdmin, createUser);
+user
+  .route('/:id')
+  .get(getUserById)
+  .patch(isAdmin, updateUser)
+  .delete(isAdmin, deleteUser);
 
 export default user;

@@ -3,8 +3,8 @@ import app from '../app';
 import {
   ADMIN_EMAIL,
   ADMIN_PASSWORD,
-  USER_EMAIL,
   USER_PASSWORD,
+  USER_UNVERIFIED_EMAIL,
 } from '../utils/env';
 
 let token: string;
@@ -87,7 +87,7 @@ describe('Login User', () => {
 
   it('Should return 403 Email not verified', async () => {
     const user = {
-      email: USER_EMAIL,
+      email: USER_UNVERIFIED_EMAIL,
       password: USER_PASSWORD,
     };
     const response = await request(app).post('/api/v1/auth/login').send(user);
@@ -108,6 +108,28 @@ describe('Login User', () => {
 });
 
 describe('Check User', () => {
+  it('Should return 401 Authorization token is required', async () => {
+    const response = await request(app).get('/api/v1/auth');
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe('Authorization token is required');
+  }, 15000);
+
+  it('Should return 401 Invalid token format', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth')
+      .set('Authorization', token);
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe('Invalid token format');
+  }, 15000);
+
+  it('Should return 401 Token signature verification failed', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth')
+      .set('Authorization', `Bearer ${token}s`);
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe('Token signature verification failed');
+  }, 15000);
+
   it('Should return 200 Authenticated successfully', async () => {
     const response = await request(app)
       .get('/api/v1/auth')

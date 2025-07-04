@@ -20,6 +20,8 @@ const checkRole =
     }
   };
 
+export const isUser = checkRole([UserRole.USER]);
+
 export const isAdmin = checkRole([UserRole.ADMIN]);
 
 export const isVerificator = checkRole([UserRole.VERIFICATOR]);

@@ -159,8 +159,6 @@ describe('Delete User', () => {
     const response = await request(app)
       .delete(`/api/v1/user/${id}`)
       .set('Authorization', `Bearer ${token}`);
-
-    console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe('User deleted successfully');
   }, 15000);

@@ -1,11 +1,11 @@
 import express from 'express';
-import { register, login, check } from '../controllers/auth';
 import authenticate from '../middlewares/authenticate';
+import { checkUser, loginUser, registerUser } from '../controllers/auth';
 
 const auth = express.Router();
 
-auth.get('/', authenticate, check);
-auth.post('/register', register);
-auth.post('/login', login);
+auth.get('/', authenticate, checkUser);
+auth.post('/register', registerUser);
+auth.post('/login', loginUser);
 
 export default auth;

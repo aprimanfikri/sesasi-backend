@@ -17,18 +17,51 @@ const main = async () => {
     },
   });
 
-  const user = await prisma.user.create({
+  const userVerifiedOne = await prisma.user.create({
     data: {
       name: 'User',
-      email: process.env.USER_EMAIL as string,
+      email: process.env.USER_VERIFIED_EMAIL as string,
+      password: userHash,
+      role: 'USER',
+      isVerified: true,
+    },
+  });
+
+  const userVerifiedTwo = await prisma.user.create({
+    data: {
+      name: 'User',
+      email: process.env.USER_VERIFIED_EMAIL_TWO as string,
+      password: userHash,
+      role: 'USER',
+      isVerified: true,
+    },
+  });
+
+  const userUnverified = await prisma.user.create({
+    data: {
+      name: 'User',
+      email: process.env.USER_UNVERIFIED_EMAIL as string,
       password: userHash,
       role: 'USER',
       isVerified: false,
     },
   });
 
+  const permission = await prisma.permission.create({
+    data: {
+      title: 'Cuti Tahunan',
+      description: 'Mengajukan cuti untuk urusan keluarga',
+      startDate: '2025-07-10T00:00:00.000Z',
+      endDate: '2025-07-12T00:00:00.000Z',
+      userId: userVerifiedOne.id,
+    },
+  });
+
   console.log('User successfuly created', admin);
-  console.log('User successfuly created', user);
+  console.log('User successfuly created', userVerifiedOne);
+  console.log('User successfuly created', userVerifiedTwo);
+  console.log('User successfuly created', userUnverified);
+  console.log('Permission successfuly created', permission);
 };
 
 main()
