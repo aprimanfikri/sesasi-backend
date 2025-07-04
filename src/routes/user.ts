@@ -5,11 +5,9 @@ import { isAdmin } from '../middlewares/role';
 
 const user = express.Router();
 
-user.route('/').get(authenticate, getAll).post(authenticate, isAdmin, create);
-user
-  .route('/:id')
-  .get(authenticate, getById)
-  .patch(authenticate, isAdmin, update)
-  .delete(authenticate, isAdmin, remove);
+user.use(authenticate);
+
+user.route('/').get(getAll).post(isAdmin, create);
+user.route('/:id').get(getById).patch(isAdmin, update).delete(isAdmin, remove);
 
 export default user;

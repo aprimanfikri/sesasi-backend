@@ -26,28 +26,17 @@ export const register = async (
 
     const hash = hashSync(password);
 
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         name: name,
         email: email.toLowerCase(),
         password: hash,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
       },
     });
 
     res.status(201).json({
       success: true,
       message: 'User register successfully',
-      data: {
-        user,
-      },
     });
   } catch (error) {
     next(error);
@@ -83,17 +72,7 @@ export const login = async (
     res.status(200).json({
       success: true,
       message: 'User login successfully',
-      data: {
-        token,
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
-        },
-      },
+      data: { token },
     });
   } catch (error) {
     next(error);
@@ -105,6 +84,6 @@ export const check = async (req: Request, res: Response) => {
   res.status(200).json({
     success: true,
     message: 'Authenticated successfully',
-    user,
+    data: { user },
   });
 };

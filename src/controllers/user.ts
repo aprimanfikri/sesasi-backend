@@ -27,9 +27,7 @@ export const getAll = async (
     res.json({
       success: true,
       message: 'Users fetched successfully',
-      data: {
-        users,
-      },
+      data: { users },
     });
   } catch (error) {
     next(error);
@@ -76,9 +74,7 @@ export const create = async (
     res.status(201).json({
       success: true,
       message: 'User created successfully',
-      data: {
-        user,
-      },
+      data: { user },
     });
   } catch (error) {
     next(error);
@@ -90,9 +86,9 @@ export const update = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
+  try {
     const { name, email, password, role } = updateUserSchema.parse(req.body);
 
     const user = await prisma.user.findUnique({
@@ -142,9 +138,7 @@ export const update = async (
     res.json({
       success: true,
       message: 'User updated successfully',
-      data: {
-        user: updatedUser,
-      },
+      data: { user: updatedUser },
     });
   } catch (error) {
     next(error);
@@ -156,9 +150,9 @@ export const getById = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
+  try {
     const user = await prisma.user.findUnique({
       where: { id },
       select: {
@@ -178,9 +172,7 @@ export const getById = async (
     res.json({
       success: true,
       message: 'User fetched successfully',
-      data: {
-        user,
-      },
+      data: { user },
     });
   } catch (error) {
     next(error);
@@ -192,9 +184,9 @@ export const remove = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
+  try {
     const user = await prisma.user.findUnique({
       where: { id },
     });
