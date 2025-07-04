@@ -1,6 +1,11 @@
 import request from 'supertest';
 import app from '../app';
-import { ADMIN_EMAIL, ADMIN_PASSWORD } from '../utils/env';
+import {
+  ADMIN_EMAIL,
+  ADMIN_PASSWORD,
+  USER_EMAIL,
+  USER_PASSWORD,
+} from '../utils/env';
 
 let token: string;
 
@@ -78,6 +83,16 @@ describe('Login User', () => {
     const response = await request(app).post('/api/v1/auth/login').send(user);
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Invalid Password');
+  }, 15000);
+
+  it('Should return 403 Email not verified', async () => {
+    const user = {
+      email: USER_EMAIL,
+      password: USER_PASSWORD,
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('Email not verified');
   }, 15000);
 
   it('Should return 200 User login successfully', async () => {

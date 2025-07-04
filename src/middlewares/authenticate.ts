@@ -37,6 +37,7 @@ const authenticate = async (
         name: true,
         email: true,
         role: true,
+        isVerified: true,
         createdAt: true,
         updatedAt: true,
       },

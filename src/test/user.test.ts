@@ -29,6 +29,7 @@ describe('Create User', () => {
       email: `${Date.now().toString()}@gmail.com`,
       password: Date.now().toString(),
       role: 'USER',
+      isVerified: true,
     };
     const response = await request(app)
       .post('/api/v1/user')
@@ -46,6 +47,7 @@ describe('Create User', () => {
       email: ADMIN_EMAIL,
       password: Date.now().toString(),
       role: 'USER',
+      isVerified: true,
     };
     const response = await request(app)
       .post('/api/v1/user')
@@ -61,6 +63,7 @@ describe('Create User', () => {
       email: `${Date.now().toString()}@gmail.com`,
       password: Date.now().toString(),
       role: 'USER',
+      isVerified: true,
     };
     const response = await request(app)
       .post('/api/v1/user')
@@ -113,7 +116,8 @@ describe('Update User', () => {
 
   it('Should return 200 User updated successfully', async () => {
     const user = {
-      password: ADMIN_PASSWORD,
+      email: `${Date.now().toString()}@gmail.com`,
+      password: Date.now().toString(),
     };
     const response = await request(app)
       .patch(`/api/v1/user/${id}`)

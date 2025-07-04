@@ -33,6 +33,9 @@ export const createUserSchema = zod.object({
   role: zod.nativeEnum(UserRole, {
     required_error: 'Role must be not empty',
   }),
+  isVerified: zod.boolean({
+    required_error: 'isVerified must be not empty',
+  }),
 });
 
 export const updateUserSchema = zod.object({
@@ -66,5 +69,14 @@ export const updateUserSchema = zod.object({
       message: 'Password must not be more than 30 characters',
     })
     .optional(),
-  role: zod.nativeEnum(UserRole).optional(),
+  role: zod
+    .nativeEnum(UserRole, {
+      required_error: 'Role must be not empty',
+    })
+    .optional(),
+  isVerified: zod
+    .boolean({
+      required_error: 'isVerified must be not empty',
+    })
+    .optional(),
 });

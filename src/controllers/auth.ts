@@ -31,6 +31,8 @@ export const register = async (
         name: name,
         email: email.toLowerCase(),
         password: hash,
+        role: 'USER',
+        isVerified: false,
       },
     });
 
@@ -65,6 +67,10 @@ export const login = async (
 
     if (!match) {
       throw new ApiError('Invalid Password', 400);
+    }
+
+    if (!user.isVerified) {
+      throw new ApiError('Email not verified', 403);
     }
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1d' });

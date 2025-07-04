@@ -7,10 +7,10 @@
   },
   "tags": [
     {
-      "name": "auth"
+      "name": "Auth"
     },
     {
-      "name": "user"
+      "name": "User"
     }
   ],
   "paths": {
@@ -20,7 +20,7 @@
         "deprecated": false,
         "description": "Register user",
         "tags": [
-          "auth"
+          "Auth"
         ],
         "parameters": [],
         "requestBody": {
@@ -76,91 +76,20 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "boolean",
-                      "default": true
+                      "type": "boolean"
                     },
                     "message": {
-                      "type": "string",
-                      "examples": [
-                        "User register successfully"
-                      ]
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "format": "uuid",
-                          "examples": [
-                            "b44f2f1c-897f-4a64-8417-4125d4fa40c4"
-                          ]
-                        },
-                        "name": {
-                          "type": "string",
-                          "examples": [
-                            "John Doe"
-                          ]
-                        },
-                        "email": {
-                          "type": "string",
-                          "format": "email",
-                          "examples": [
-                            "johndoe@gmail.com"
-                          ]
-                        },
-                        "role": {
-                          "type": "string",
-                          "enum": [
-                            "ADMIN",
-                            "VERIFICATOR",
-                            "USER"
-                          ],
-                          "examples": [
-                            "USER"
-                          ]
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "format": "date-time",
-                          "examples": [
-                            "2025-06-30T16:47:43.938Z"
-                          ]
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "format": "date-time",
-                          "examples": [
-                            "2025-06-30T16:47:43.938Z"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "email",
-                        "role",
-                        "createdAt",
-                        "updatedAt"
-                      ]
+                      "type": "string"
                     }
                   },
                   "required": [
                     "success",
-                    "message",
-                    "data"
+                    "message"
                   ]
                 },
                 "example": {
-                  "success": false,
-                  "message": "User register successfully",
-                  "data": {
-                    "id": "b44f2f1c-897f-4a64-8417-4125d4fa40c4",
-                    "name": "John Doe",
-                    "email": "johndoe@gmail.com",
-                    "role": "USER",
-                    "createdAt": "2025-06-30T16:47:43.938Z",
-                    "updatedAt": "2025-06-30T16:47:43.938Z"
-                  }
+                  "success": true,
+                  "message": "User register successfully"
                 }
               }
             },
@@ -271,7 +200,7 @@
         "deprecated": false,
         "description": "Login user",
         "tags": [
-          "auth"
+          "Auth"
         ],
         "parameters": [],
         "requestBody": {
@@ -366,52 +295,17 @@
                       "type": "boolean"
                     },
                     "message": {
-                      "type": "string",
-                      "examples": [
-                        "User login successfully"
-                      ]
+                      "type": "string"
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "token": {
                           "type": "string"
-                        },
-                        "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "email": {
-                              "type": "string"
-                            },
-                            "role": {
-                              "type": "string"
-                            },
-                            "createdAt": {
-                              "type": "string"
-                            },
-                            "updatedAt": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name",
-                            "email",
-                            "role",
-                            "createdAt",
-                            "updatedAt"
-                          ]
                         }
                       },
                       "required": [
-                        "token",
-                        "user"
+                        "token"
                       ]
                     }
                   },
@@ -425,15 +319,7 @@
                   "success": true,
                   "message": "User login successfully",
                   "data": {
-                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYzMDYzNDM3LTgxNWYtNDZjNC05ODg0LTM4ODlkZjNiOGU4NyIsImlhdCI6MTc1MTMwNzA3MywiZXhwIjoxNzUxMzkzNDczfQ.IGRcQZ9_KaGBy9HNmTJgIb8tUlTj2FSs5gmiANyOHOo",
-                    "user": {
-                      "id": "f3063437-815f-46c4-9884-3889df3b8e87",
-                      "name": "Admin",
-                      "email": "admin@mail.com",
-                      "role": "USER",
-                      "createdAt": "2025-06-30T18:04:21.086Z",
-                      "updatedAt": "2025-06-30T18:04:21.086Z"
-                    }
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc0NjNlMjAzLWJmZjEtNDY2My1hOTljLTQ4MTkwY2I5YWY5ZiIsImlhdCI6MTc1MTU1NTkwMCwiZXhwIjoxNzUxNjQyMzAwfQ.TT1PkSLmixHpmS35lqxGlYIW05gzV3ZWdGa6eXdlf6U"
                   }
                 }
               }
@@ -465,6 +351,33 @@
                 "example": {
                   "success": false,
                   "message": "Password must be at least 8 characters long"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Email not verified"
                 }
               }
             },
@@ -540,7 +453,7 @@
         "deprecated": false,
         "description": "",
         "tags": [
-          "auth"
+          "Auth"
         ],
         "parameters": [],
         "responses": {
@@ -557,54 +470,69 @@
                     "message": {
                       "type": "string"
                     },
-                    "user": {
+                    "data": {
                       "type": "object",
                       "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "role": {
-                          "type": "string"
-                        },
-                        "createdAt": {
-                          "type": "string"
-                        },
-                        "updatedAt": {
-                          "type": "string"
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            },
+                            "isVerified": {
+                              "type": "boolean"
+                            },
+                            "createdAt": {
+                              "type": "string"
+                            },
+                            "updatedAt": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "email",
+                            "role",
+                            "isVerified",
+                            "createdAt",
+                            "updatedAt"
+                          ]
                         }
                       },
                       "required": [
-                        "id",
-                        "name",
-                        "email",
-                        "role",
-                        "createdAt",
-                        "updatedAt"
+                        "user"
                       ]
                     }
                   },
                   "required": [
                     "success",
                     "message",
-                    "user"
+                    "data"
                   ]
                 },
                 "example": {
                   "success": true,
                   "message": "Authenticated successfully",
-                  "user": {
-                    "id": "f3063437-815f-46c4-9884-3889df3b8e87",
-                    "name": "John Doe",
-                    "email": "johndoe@mail.com",
-                    "role": "USER",
-                    "createdAt": "2025-06-30T18:04:21.086Z",
-                    "updatedAt": "2025-06-30T18:04:21.086Z"
+                  "data": {
+                    "user": {
+                      "id": "2a3043c9-7e1c-4d79-af93-690ff0ca6192",
+                      "name": "Admin",
+                      "email": "admin@mail.com",
+                      "role": "ADMIN",
+                      "isVerified": true,
+                      "createdAt": "2025-07-04T11:51:17.499Z",
+                      "updatedAt": "2025-07-04T11:51:17.499Z"
+                    }
                   }
                 }
               }
@@ -679,7 +607,7 @@
         "deprecated": false,
         "description": "",
         "tags": [
-          "user"
+          "User"
         ],
         "parameters": [],
         "responses": {
@@ -716,6 +644,9 @@
                               "role": {
                                 "type": "string"
                               },
+                              "isVerified": {
+                                "type": "boolean"
+                              },
                               "createdAt": {
                                 "type": "string"
                               },
@@ -743,12 +674,13 @@
                   "data": {
                     "users": [
                       {
-                        "id": "27bbbcd8-8f0c-47ed-b0f1-14834a94ad03",
-                        "name": "John Doe",
-                        "email": "johndoe@mail.com",
+                        "id": "73c8033a-2318-4898-ba00-cdce43a006ed",
+                        "name": "User",
+                        "email": "user@mail.com",
                         "role": "USER",
-                        "createdAt": "2025-07-01T16:16:44.335Z",
-                        "updatedAt": "2025-07-01T16:16:44.335Z"
+                        "isVerified": false,
+                        "createdAt": "2025-07-04T11:51:17.516Z",
+                        "updatedAt": "2025-07-04T11:51:17.516Z"
                       }
                     ]
                   }
@@ -823,7 +755,7 @@
         "deprecated": false,
         "description": "",
         "tags": [
-          "user"
+          "User"
         ],
         "parameters": [],
         "requestBody": {
@@ -843,20 +775,25 @@
                   },
                   "role": {
                     "type": "string"
+                  },
+                  "isVerified": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
                   "name",
                   "email",
                   "password",
-                  "role"
+                  "role",
+                  "isVerified"
                 ]
               },
               "example": {
                 "name": "John Doe",
                 "email": "johndoe@mail.com",
                 "password": "password123",
-                "role": "USER"
+                "role": "USER",
+                "isVerified": true
               }
             }
           }
@@ -893,6 +830,9 @@
                             "role": {
                               "type": "string"
                             },
+                            "isVerified": {
+                              "type": "boolean"
+                            },
                             "createdAt": {
                               "type": "string"
                             },
@@ -905,6 +845,7 @@
                             "name",
                             "email",
                             "role",
+                            "isVerified",
                             "createdAt",
                             "updatedAt"
                           ]
@@ -926,12 +867,13 @@
                   "message": "User created successfully",
                   "data": {
                     "user": {
-                      "id": "27bbbcd8-8f0c-47ed-b0f1-14834a94ad03",
+                      "id": "19cbb0e1-d3d0-4758-962f-c863b31f820c",
                       "name": "John Doe",
                       "email": "johndoe@mail.com",
                       "role": "USER",
-                      "createdAt": "2025-07-01T16:16:44.335Z",
-                      "updatedAt": "2025-07-01T16:16:44.335Z"
+                      "isVerified": true,
+                      "createdAt": "2025-07-04T12:07:00.345Z",
+                      "updatedAt": "2025-07-04T12:07:00.345Z"
                     }
                   }
                 }
@@ -1042,6 +984,603 @@
                 "example": {
                   "success": false,
                   "message": "Email already in use"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Internal Server Error"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user/{id}": {
+      "get": {
+        "summary": "Get User By Id",
+        "deprecated": false,
+        "description": "Get User By Id",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            },
+                            "isVerified": {
+                              "type": "boolean"
+                            },
+                            "createdAt": {
+                              "type": "string"
+                            },
+                            "updatedAt": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "email",
+                            "role",
+                            "isVerified",
+                            "createdAt",
+                            "updatedAt"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "user"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "User fetched successfully",
+                  "data": {
+                    "user": {
+                      "id": "73c8033a-2318-4898-ba00-cdce43a006ed",
+                      "name": "User",
+                      "email": "user@mail.com",
+                      "role": "USER",
+                      "isVerified": false,
+                      "createdAt": "2025-07-04T11:51:17.516Z",
+                      "updatedAt": "2025-07-04T11:51:17.516Z"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Authorization token is required"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "User not found"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Internal Server Error"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update User",
+        "deprecated": false,
+        "description": "Update User",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "John Doe",
+                "email": "johndoe@mail.com",
+                "password": "password123",
+                "role": "USER"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            },
+                            "isVerified": {
+                              "type": "boolean"
+                            },
+                            "createdAt": {
+                              "type": "string"
+                            },
+                            "updatedAt": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "email",
+                            "role",
+                            "isVerified",
+                            "createdAt",
+                            "updatedAt"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "user"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "User updated successfully",
+                  "data": {
+                    "user": {
+                      "id": "19cbb0e1-d3d0-4758-962f-c863b31f820c",
+                      "name": "John doe",
+                      "email": "johndoes@mail.com",
+                      "role": "USER",
+                      "isVerified": true,
+                      "createdAt": "2025-07-04T12:07:00.345Z",
+                      "updatedAt": "2025-07-04T12:08:38.629Z"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Name must be at least 3 characters"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Authorization token is required"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "User not found"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Email already in use"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Internal Server Error"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete User",
+        "deprecated": false,
+        "description": "Delete User",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "User deleted successfully"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Authorization token is required"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "User not found"
                 }
               }
             },
