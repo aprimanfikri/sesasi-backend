@@ -3,11 +3,19 @@ import app from '../app';
 import {
   ADMIN_EMAIL,
   ADMIN_PASSWORD,
+  JWT_SECRET,
   USER_PASSWORD,
   USER_UNVERIFIED_EMAIL,
 } from '../utils/env';
+import jwt from 'jsonwebtoken';
 
 let token: string;
+const jwtInvalidUser = jwt.sign({ id: '123' }, JWT_SECRET, {
+  expiresIn: '1h',
+});
+const jwtExpired = jwt.sign({ id: '123' }, JWT_SECRET, {
+  expiresIn: '1s',
+});
 
 describe('Register User', () => {
   it('Should return 400 Name must not be more than 50 characters long', async () => {
@@ -128,6 +136,30 @@ describe('Check User', () => {
       .set('Authorization', `Bearer ${token}s`);
     expect(response.status).toBe(401);
     expect(response.body.message).toBe('Token signature verification failed');
+  }, 15000);
+
+  it('Should return 401 Invalid user', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth')
+      .set('Authorization', `Bearer ${jwtInvalidUser}`);
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe('Invalid user');
+  }, 15000);
+
+  it('Should return 401 Token expired. Please login again', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth')
+      .set('Authorization', `Bearer ${jwtExpired}`);
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe('Token expired. Please login again');
+  }, 15000);
+
+  it('Should return 401 Invalid token format', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth')
+      .set('Authorization', 'Bearer token');
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe('Invalid token format');
   }, 15000);
 
   it('Should return 200 Authenticated successfully', async () => {

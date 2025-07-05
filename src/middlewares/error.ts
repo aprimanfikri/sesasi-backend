@@ -18,6 +18,7 @@ const formatZodError = (err: ZodError): string => {
 const handleJWTError = (err: JsonWebTokenError): string => {
   if (err instanceof TokenExpiredError)
     return 'Token expired. Please login again';
+
   if (err instanceof NotBeforeError) return 'Token not yet valid';
 
   switch (err.message) {
@@ -25,14 +26,8 @@ const handleJWTError = (err: JsonWebTokenError): string => {
       return 'Invalid token format';
     case 'invalid signature':
       return 'Token signature verification failed';
-    case 'jwt must be provided':
-      return 'No token provided';
-    case 'invalid token':
-      return 'Invalid authentication token';
-    case 'jwt expired':
-      return 'Session expired. Please login again';
     default:
-      return 'Authentication failed';
+      return 'Invalid authentication token';
   }
 };
 

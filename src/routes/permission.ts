@@ -16,7 +16,10 @@ const permission = express.Router();
 permission.use(authenticate);
 
 permission.route('/user').get(getAllPermissionsByUser);
-permission.route('/').get(getAllPermissions).post(createPermission);
+permission
+  .route('/')
+  .get(isAdminOrVerificator, getAllPermissions)
+  .post(createPermission);
 permission
   .route('/:id/status')
   .patch(isAdminOrVerificator, updatePermissionStatus);

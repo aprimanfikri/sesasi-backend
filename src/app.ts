@@ -1,7 +1,6 @@
 import express from 'express';
 import errorHandler from './middlewares/error';
 import dotenv from 'dotenv';
-import morgan from 'morgan';
 import cors from 'cors';
 import { NODE_ENV } from './utils/env';
 import routes from './routes';
@@ -18,10 +17,6 @@ dotenv.config({
 });
 
 const app = express();
-
-if (NODE_ENV !== 'production') {
-  app.use(morgan('dev'));
-}
 
 app.use(cors());
 

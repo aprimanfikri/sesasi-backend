@@ -37,6 +37,7 @@ export const getPermissionById = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
+  const user = req.user;
 
   try {
     const permission = await prisma.permission.findUnique({
@@ -47,6 +48,17 @@ export const getPermissionById = async (
 
     if (!permission) {
       throw new ApiError('Permission not found', 404);
+    }
+
+    const isOwner = permission.userId === user?.id;
+    const isAdminOrVerificator =
+      user?.role === 'ADMIN' || user?.role === 'VERIFICATOR';
+
+    if (!isOwner && !isAdminOrVerificator) {
+      throw new ApiError(
+        'You are not authorized to access this permission',
+        403
+      );
     }
 
     res.status(200).json({
