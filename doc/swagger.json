@@ -22,7 +22,9 @@
         "summary": "Register",
         "deprecated": false,
         "description": "Register user",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -32,23 +34,33 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "examples": ["John Doe"],
+                    "examples": [
+                      "John Doe"
+                    ],
                     "minLength": 3,
                     "maxLength": 50
                   },
                   "email": {
                     "type": "string",
-                    "examples": ["johndoe@mail.com"]
+                    "examples": [
+                      "johndoe@mail.com"
+                    ]
                   },
                   "password": {
                     "type": "string",
-                    "examples": ["password"],
+                    "examples": [
+                      "password"
+                    ],
                     "minLength": 8,
                     "maxLength": 30,
                     "format": "password"
                   }
                 },
-                "required": ["password", "email", "name"]
+                "required": [
+                  "password",
+                  "email",
+                  "name"
+                ]
               },
               "example": {
                 "name": "John Doe",
@@ -73,7 +85,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -97,10 +112,15 @@
                     },
                     "message": {
                       "type": "string",
-                      "examples": ["Name must be at least 3 characters long"]
+                      "examples": [
+                        "Name must be at least 3 characters long"
+                      ]
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -124,10 +144,15 @@
                     },
                     "message": {
                       "type": "string",
-                      "examples": ["Email already in use"]
+                      "examples": [
+                        "Email already in use"
+                      ]
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -150,10 +175,15 @@
                     },
                     "message": {
                       "type": "string",
-                      "examples": ["Internal Server Error"]
+                      "examples": [
+                        "Internal Server Error"
+                      ]
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -172,7 +202,9 @@
         "summary": "Login",
         "deprecated": false,
         "description": "Login user",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -224,7 +256,10 @@
                         ]
                       }
                     },
-                    "required": ["token", "user"]
+                    "required": [
+                      "token",
+                      "user"
+                    ]
                   },
                   "email": {
                     "type": "string"
@@ -236,7 +271,13 @@
                     "maxLength": 30
                   }
                 },
-                "required": ["success", "message", "data", "email", "password"]
+                "required": [
+                  "success",
+                  "message",
+                  "data",
+                  "email",
+                  "password"
+                ]
               },
               "example": {
                 "email": "admin@mail.com",
@@ -266,10 +307,16 @@
                           "type": "string"
                         }
                       },
-                      "required": ["token"]
+                      "required": [
+                        "token"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -299,7 +346,10 @@
                       ]
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -323,7 +373,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -345,10 +398,15 @@
                     },
                     "message": {
                       "type": "string",
-                      "examples": ["Email not found"]
+                      "examples": [
+                        "Email not found"
+                      ]
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -370,10 +428,15 @@
                     },
                     "message": {
                       "type": "string",
-                      "examples": ["Internal Server Error"]
+                      "examples": [
+                        "Internal Server Error"
+                      ]
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -392,7 +455,9 @@
         "summary": "Check",
         "deprecated": false,
         "description": "",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -447,10 +512,16 @@
                           ]
                         }
                       },
-                      "required": ["user"]
+                      "required": [
+                        "user"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -485,7 +556,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -509,7 +583,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -532,7 +609,9 @@
         "summary": "Get All User",
         "deprecated": false,
         "description": "",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -581,10 +660,16 @@
                           }
                         }
                       },
-                      "required": ["users"]
+                      "required": [
+                        "users"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -621,7 +706,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -645,7 +733,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -666,7 +757,9 @@
         "summary": "Create User",
         "deprecated": false,
         "description": "",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -690,7 +783,13 @@
                     "type": "boolean"
                   }
                 },
-                "required": ["name", "email", "password", "role", "isVerified"]
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "role",
+                  "isVerified"
+                ]
               },
               "example": {
                 "name": "John Doe",
@@ -755,10 +854,16 @@
                           ]
                         }
                       },
-                      "required": ["user"]
+                      "required": [
+                        "user"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -793,7 +898,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -817,7 +925,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -841,7 +952,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -865,7 +979,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -889,7 +1006,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -912,7 +1032,9 @@
         "summary": "Get User By Id",
         "deprecated": false,
         "description": "Get User By Id",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -977,10 +1099,16 @@
                           ]
                         }
                       },
-                      "required": ["user"]
+                      "required": [
+                        "user"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -1015,7 +1143,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1039,7 +1170,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1063,7 +1197,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1084,7 +1221,9 @@
         "summary": "Update User",
         "deprecated": false,
         "description": "Update User",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1178,10 +1317,16 @@
                           ]
                         }
                       },
-                      "required": ["user"]
+                      "required": [
+                        "user"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -1216,7 +1361,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1240,7 +1388,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1264,7 +1415,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1288,7 +1442,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1312,7 +1469,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1333,7 +1493,9 @@
         "summary": "Delete User",
         "deprecated": false,
         "description": "Delete User",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1360,7 +1522,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -1384,7 +1549,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1408,7 +1576,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1432,7 +1603,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1455,7 +1629,9 @@
         "summary": "Get All Permisions",
         "deprecated": false,
         "description": "Get All Permisions",
-        "tags": ["Permission"],
+        "tags": [
+          "Permission"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1516,10 +1692,16 @@
                           }
                         }
                       },
-                      "required": ["permissions"]
+                      "required": [
+                        "permissions"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -1560,7 +1742,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1584,7 +1769,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1605,7 +1793,9 @@
         "summary": "Create Permission",
         "deprecated": false,
         "description": "Create Permission",
-        "tags": ["Permission"],
+        "tags": [
+          "Permission"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -1628,7 +1818,12 @@
                     "format": "date-time"
                   }
                 },
-                "required": ["title", "description", "startDate", "endDate"]
+                "required": [
+                  "title",
+                  "description",
+                  "startDate",
+                  "endDate"
+                ]
               },
               "example": {
                 "title": "Cuti Tahunan",
@@ -1708,10 +1903,16 @@
                           ]
                         }
                       },
-                      "required": ["permission"]
+                      "required": [
+                        "permission"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -1750,7 +1951,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1774,7 +1978,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1798,7 +2005,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1822,7 +2032,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1845,7 +2058,9 @@
         "summary": "Get All Permisions By User",
         "deprecated": false,
         "description": "Get All Permisions By User",
-        "tags": ["Permission"],
+        "tags": [
+          "Permission"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1906,10 +2121,16 @@
                           }
                         }
                       },
-                      "required": ["permissions"]
+                      "required": [
+                        "permissions"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -1950,7 +2171,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1974,7 +2198,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -1997,7 +2224,9 @@
         "summary": "Get Permission By Id",
         "deprecated": false,
         "description": "Get Permission By Id",
-        "tags": ["Permission"],
+        "tags": [
+          "Permission"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2078,10 +2307,16 @@
                           ]
                         }
                       },
-                      "required": ["permission"]
+                      "required": [
+                        "permission"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -2120,7 +2355,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2144,7 +2382,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2168,7 +2409,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2192,7 +2436,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2213,7 +2460,9 @@
         "summary": "Update Permission",
         "deprecated": false,
         "description": "Update Permission",
-        "tags": ["Permission"],
+        "tags": [
+          "Permission"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2325,10 +2574,16 @@
                           ]
                         }
                       },
-                      "required": ["permission"]
+                      "required": [
+                        "permission"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -2367,7 +2622,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2391,7 +2649,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2415,7 +2676,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2439,7 +2703,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2463,7 +2730,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2487,7 +2757,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2508,7 +2781,9 @@
         "summary": "Delete Permission",
         "deprecated": false,
         "description": "Delete Permission",
-        "tags": ["Permission"],
+        "tags": [
+          "Permission"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2535,7 +2810,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -2559,7 +2837,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2583,7 +2864,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2607,7 +2891,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2631,7 +2918,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2654,7 +2944,9 @@
         "summary": "Update Permission Status",
         "deprecated": false,
         "description": "Update Permission Status",
-        "tags": ["Permission"],
+        "tags": [
+          "Permission"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2679,7 +2971,10 @@
                     "type": "string"
                   }
                 },
-                "required": ["status", "verificatorComment"]
+                "required": [
+                  "status",
+                  "verificatorComment"
+                ]
               },
               "example": {
                 "status": "APPROVED",
@@ -2757,10 +3052,16 @@
                           ]
                         }
                       },
-                      "required": ["permission"]
+                      "required": [
+                        "permission"
+                      ]
                     }
                   },
-                  "required": ["success", "message", "data"]
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 },
                 "example": {
                   "success": true,
@@ -2799,7 +3100,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2823,7 +3127,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2847,7 +3154,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2871,7 +3181,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2895,7 +3208,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,
@@ -2919,7 +3235,248 @@
                       "type": "string"
                     }
                   },
-                  "required": ["success", "message"]
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Internal Server Error"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/permission/{id}/cancel": {
+      "patch": {
+        "summary": "Cancel Permission",
+        "deprecated": false,
+        "description": "Cancel Permission",
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "permission": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "startDate": {
+                              "type": "string"
+                            },
+                            "endDate": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "type": "string"
+                            },
+                            "userId": {
+                              "type": "string"
+                            },
+                            "verificatorId": {
+                              "type": "null"
+                            },
+                            "verificatorComment": {
+                              "type": "null"
+                            },
+                            "createdAt": {
+                              "type": "string"
+                            },
+                            "updatedAt": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "title",
+                            "description",
+                            "startDate",
+                            "endDate",
+                            "status",
+                            "userId",
+                            "verificatorId",
+                            "verificatorComment",
+                            "createdAt",
+                            "updatedAt"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "permission"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Permission cancelled successfully",
+                  "data": {
+                    "permission": {
+                      "id": "f820ad21-9b04-4d20-a911-32178dcaac19",
+                      "title": "Cuti Tahunan Update",
+                      "description": "Mengajukan cuti untuk urusan keluarga",
+                      "startDate": "2025-07-10T00:00:00.000Z",
+                      "endDate": "2025-07-12T00:00:00.000Z",
+                      "status": "CANCELLED",
+                      "userId": "72ed0fd4-eaad-4ce1-b19a-52aa2a7efe75",
+                      "verificatorId": null,
+                      "verificatorComment": null,
+                      "createdAt": "2025-07-04T13:26:32.800Z",
+                      "updatedAt": "2025-07-04T16:57:59.947Z"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Authorization token is required"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "You are not authorized to update this permission"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Permission not found"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
                 },
                 "example": {
                   "success": false,

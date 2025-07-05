@@ -1,6 +1,7 @@
 import express from 'express';
 import authenticate from '../middlewares/authenticate';
 import {
+  cancelPermission,
   createPermission,
   deletePermission,
   getAllPermissions,
@@ -20,6 +21,7 @@ permission
   .route('/')
   .get(isAdminOrVerificator, getAllPermissions)
   .post(createPermission);
+permission.route('/:id/cancel').patch(cancelPermission);
 permission
   .route('/:id/status')
   .patch(isAdminOrVerificator, updatePermissionStatus);

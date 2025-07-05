@@ -11,6 +11,7 @@ import {
 let adminToken: string;
 let userTokenOne: string;
 let userTokenTwo: string;
+let idPending: string;
 let idApproved: string;
 let idRejected: string;
 let idRevised: string;
@@ -31,6 +32,14 @@ beforeAll(async () => {
 });
 
 describe('Get All Permissions', () => {
+  it('Should return 403 You don not have permission to access', async () => {
+    const response = await request(app)
+      .get('/api/v1/permission')
+      .set('Authorization', `Bearer ${userTokenOne}`);
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You don not have permission to access');
+  }, 15000);
+
   it('Should return 200 Permissions fetched successfully', async () => {
     const response = await request(app)
       .get('/api/v1/permission')
@@ -68,7 +77,7 @@ describe('Create Permission', () => {
     );
   }, 15000);
 
-  it('Should return 409 Permission already exist', async () => {
+  it('Should return 409 Permission already exists', async () => {
     const permission = {
       title: 'Cuti Tahunan',
       description: 'Mengajukan cuti untuk urusan keluarga',
@@ -80,7 +89,7 @@ describe('Create Permission', () => {
       .send(permission)
       .set('Authorization', `Bearer ${userTokenOne}`);
     expect(response.status).toBe(409);
-    expect(response.body.message).toBe('Permission already exist');
+    expect(response.body.message).toBe('Permission already exists');
   }, 15000);
 
   it('Should return 201 Permission created successfully', async () => {
@@ -139,6 +148,25 @@ describe('Create Permission', () => {
     expect(response.body.message).toBe('Permission created successfully');
     idRevised = response.body.data.permission.id;
   }, 15000);
+
+  it('Should return 201 Permission created successfully', async () => {
+    const startDate = new Date();
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 1);
+    const permission = {
+      title: 'Cuti',
+      description: 'Lorem ipsum',
+      startDate,
+      endDate,
+    };
+    const response = await request(app)
+      .post('/api/v1/permission')
+      .send(permission)
+      .set('Authorization', `Bearer ${userTokenOne}`);
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('Permission created successfully');
+    idPending = response.body.data.permission.id;
+  }, 15000);
 });
 
 describe('Update Permission Status', () => {
@@ -161,31 +189,37 @@ describe('Update Permission Status', () => {
     );
   }, 15000);
 
-  it('Should return 200 Permission updated successfully', async () => {
+  it('Should return 200 Permission status updated successfully', async () => {
     const response = await request(app)
       .patch(`/api/v1/permission/${idApproved}/status`)
       .send({ status: 'APPROVED', verificatorComment: 'Get Well Soon' })
       .set('Authorization', `Bearer ${adminToken}`);
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe('Permission updated successfully');
+    expect(response.body.message).toBe(
+      'Permission status updated successfully'
+    );
   }, 15000);
 
-  it('Should return 200 Permission updated successfully', async () => {
+  it('Should return 200 Permission status updated successfully', async () => {
     const response = await request(app)
       .patch(`/api/v1/permission/${idRejected}/status`)
       .send({ status: 'REJECTED', verificatorComment: 'Get Well Soon' })
       .set('Authorization', `Bearer ${adminToken}`);
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe('Permission updated successfully');
+    expect(response.body.message).toBe(
+      'Permission status updated successfully'
+    );
   }, 15000);
 
-  it('Should return 200 Permission updated successfully', async () => {
+  it('Should return 200 Permission status updated successfully', async () => {
     const response = await request(app)
       .patch(`/api/v1/permission/${idRevised}/status`)
       .send({ status: 'REVISED', verificatorComment: 'Get Well Soon' })
       .set('Authorization', `Bearer ${adminToken}`);
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe('Permission updated successfully');
+    expect(response.body.message).toBe(
+      'Permission status updated successfully'
+    );
   }, 15000);
 });
 
@@ -208,24 +242,24 @@ describe('Update Permission', () => {
     );
   }, 15000);
 
-  it('Should return 400 Permission already approved or rejected', async () => {
+  it('Should return 400 Permission cannot be updated because it is already processed', async () => {
     const response = await request(app)
       .patch(`/api/v1/permission/${idApproved}`)
       .set('Authorization', `Bearer ${userTokenOne}`);
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe(
-      'Permission already approved or rejected'
+      'Permission cannot be updated because it is already processed'
     );
   }, 15000);
 
-  it('Should return 400 Permission already approved or rejected', async () => {
+  it('Should return 400 Permission cannot be updated because it is already processed', async () => {
     const response = await request(app)
       .patch(`/api/v1/permission/${idRejected}`)
       .set('Authorization', `Bearer ${userTokenOne}`);
     expect(response.status).toBe(400);
     expect(response.body.message).toBe(
-      'Permission already approved or rejected'
+      'Permission cannot be updated because it is already processed'
     );
   }, 15000);
 
@@ -273,6 +307,44 @@ describe('Get Permission By Id', () => {
       .set('Authorization', `Bearer ${userTokenOne}`);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe('Permission fetched successfully');
+  }, 15000);
+});
+
+describe('Cancel Permission', () => {
+  it('Should return 404 Permission not found', async () => {
+    const response = await request(app)
+      .patch(`/api/v1/permission/test/cancel`)
+      .set('Authorization', `Bearer ${userTokenOne}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Permission not found');
+  }, 15000);
+
+  it('Should return 403 You are not authorized to cancel this permission', async () => {
+    const response = await request(app)
+      .patch(`/api/v1/permission/${idApproved}/cancel`)
+      .set('Authorization', `Bearer ${userTokenTwo}`);
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe(
+      'You are not authorized to cancel this permission'
+    );
+  }, 15000);
+
+  it('Should return 400 Permission cannot be cancelled because it is already processed', async () => {
+    const response = await request(app)
+      .patch(`/api/v1/permission/${idApproved}/cancel`)
+      .set('Authorization', `Bearer ${userTokenOne}`);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe(
+      'Permission cannot be cancelled because it is already processed'
+    );
+  }, 15000);
+
+  it('Should return 200 Permission cancelled successfully', async () => {
+    const response = await request(app)
+      .patch(`/api/v1/permission/${idPending}/cancel`)
+      .set('Authorization', `Bearer ${userTokenOne}`);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Permission cancelled successfully');
   }, 15000);
 });
 

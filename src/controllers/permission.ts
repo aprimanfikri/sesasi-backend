@@ -41,9 +41,7 @@ export const getPermissionById = async (
 
   try {
     const permission = await prisma.permission.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
     });
 
     if (!permission) {
@@ -94,7 +92,7 @@ export const createPermission = async (
     });
 
     if (exist) {
-      throw new ApiError('Permission already exist', 409);
+      throw new ApiError('Permission already exists', 409);
     }
 
     const permission = await prisma.permission.create({
@@ -137,21 +135,19 @@ export const updatePermission = async (
     }
 
     const isOwner = exist.userId === user?.id;
-    const isAdminOrVerificator =
-      user?.role === 'ADMIN' || user?.role === 'VERIFICATOR';
 
-    if (!isOwner && !isAdminOrVerificator) {
+    if (!isOwner) {
       throw new ApiError(
         'You are not authorized to update this permission',
         403
       );
     }
 
-    if (
-      isOwner &&
-      (exist.status === 'APPROVED' || exist.status === 'REJECTED')
-    ) {
-      throw new ApiError('Permission already approved or rejected', 400);
+    if (exist.status !== 'PENDING' && exist.status !== 'REVISED') {
+      throw new ApiError(
+        'Permission cannot be updated because it is already processed',
+        400
+      );
     }
 
     const { title, description, startDate, endDate } =
@@ -177,6 +173,51 @@ export const updatePermission = async (
   }
 };
 
+export const cancelPermission = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const user = req.user;
+
+  try {
+    const exist = await prisma.permission.findUnique({ where: { id } });
+    if (!exist) {
+      throw new ApiError('Permission not found', 404);
+    }
+
+    const isOwner = exist.userId === user?.id;
+
+    if (!isOwner) {
+      throw new ApiError(
+        'You are not authorized to cancel this permission',
+        403
+      );
+    }
+
+    if (exist.status !== 'PENDING' && exist.status !== 'REVISED') {
+      throw new ApiError(
+        'Permission cannot be cancelled because it is already processed',
+        400
+      );
+    }
+
+    const cancelled = await prisma.permission.update({
+      where: { id },
+      data: { status: 'CANCELLED' },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Permission cancelled successfully',
+      data: { permission: cancelled },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deletePermission = async (
   req: Request,
   res: Response,
@@ -195,18 +236,17 @@ export const deletePermission = async (
     const isAdminOrVerificator =
       user?.role === 'ADMIN' || user?.role === 'VERIFICATOR';
 
-    if (!isOwner && !isAdminOrVerificator) {
-      throw new ApiError(
-        'You are not authorized to delete this permission',
-        403
-      );
-    }
+    if (!isAdminOrVerificator) {
+      if (!isOwner) {
+        throw new ApiError(
+          'You are not authorized to delete this permission',
+          403
+        );
+      }
 
-    if (
-      isOwner &&
-      (exist.status === 'APPROVED' || exist.status === 'REJECTED')
-    ) {
-      throw new ApiError('Permission already approved or rejected', 400);
+      if (exist.status === 'APPROVED' || exist.status === 'REJECTED') {
+        throw new ApiError('Permission already approved or rejected', 400);
+      }
     }
 
     await prisma.permission.delete({ where: { id } });
@@ -226,6 +266,7 @@ export const updatePermissionStatus = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
+  const user = req.user;
 
   try {
     const exist = await prisma.permission.findUnique({ where: { id } });
@@ -244,7 +285,7 @@ export const updatePermissionStatus = async (
         status,
         verificator: {
           connect: {
-            id: req.user?.id!,
+            id: user?.id!,
           },
         },
         verificatorComment: verificatorComment ?? undefined,
@@ -253,7 +294,7 @@ export const updatePermissionStatus = async (
 
     res.status(200).json({
       success: true,
-      message: 'Permission updated successfully',
+      message: 'Permission status updated successfully',
       data: {
         permission: updated,
       },

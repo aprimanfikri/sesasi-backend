@@ -11,7 +11,7 @@ const checkRole =
       }
 
       if (!roles.includes(req.user.role)) {
-        throw new ApiError("You don't have permission to access", 403);
+        throw new ApiError('You don not have permission to access', 403);
       }
 
       next();
