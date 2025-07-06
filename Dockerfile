@@ -1,4 +1,4 @@
-FROM node:18-alpine AS builder
+FROM node:22.14.0-alpine AS builder
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN npx prisma generate
 
 RUN npm run build
 
-FROM node:18-alpine
+FROM node:22.14.0-alpine
 
 WORKDIR /app
 
@@ -21,6 +21,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma/*.db ./prisma
+COPY --from=builder /app/doc ./doc
 
 RUN npm install --only=production
 
