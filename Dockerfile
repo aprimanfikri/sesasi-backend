@@ -20,13 +20,10 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/prisma/*.db ./prisma
 COPY --from=builder /app/doc ./doc
 
 RUN npm install --only=production
 
 EXPOSE 3000
-
-RUN npx prisma migrate deploy
 
 CMD ["node", "dist/index.js"]
