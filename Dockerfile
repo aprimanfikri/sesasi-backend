@@ -9,6 +9,7 @@ RUN npm install
 COPY . .
 
 RUN npx prisma generate
+
 RUN npm run build
 
 FROM node:18-alpine
@@ -26,7 +27,5 @@ RUN npm install --only=production
 EXPOSE 3000
 
 RUN npx prisma migrate deploy
-
-ENV PORT=3000
 
 CMD ["node", "dist/index.js"]
