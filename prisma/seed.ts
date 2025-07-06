@@ -7,10 +7,20 @@ const main = async () => {
   const adminHash = hashSync(process.env.ADMIN_PASSWORD as string);
   const userHash = hashSync(process.env.USER_PASSWORD as string);
 
-  const admin = await prisma.user.create({
+  const adminOne = await prisma.user.create({
     data: {
       name: 'Admin',
       email: process.env.ADMIN_EMAIL as string,
+      password: adminHash,
+      role: 'ADMIN',
+      status: 'ACTIVE',
+    },
+  });
+
+  const adminTwo = await prisma.user.create({
+    data: {
+      name: 'Admin',
+      email: process.env.ADMIN_EMAIL_TWO as string,
       password: adminHash,
       role: 'ADMIN',
       status: 'ACTIVE',
@@ -57,7 +67,8 @@ const main = async () => {
     },
   });
 
-  console.log('User successfuly created', admin);
+  console.log('User successfuly created', adminOne);
+  console.log('User successfuly created', adminTwo);
   console.log('User successfuly created', userVerifiedOne);
   console.log('User successfuly created', userVerifiedTwo);
   console.log('User successfuly created', userUnverified);

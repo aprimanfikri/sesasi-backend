@@ -74,7 +74,7 @@ export const loginUser = async (
       throw new ApiError('Invalid Password', 400);
     }
 
-    if (!user.status) {
+    if (user.status === 'INACTIVE') {
       throw new ApiError('Email not verified', 403);
     }
 

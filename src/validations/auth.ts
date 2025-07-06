@@ -63,21 +63,19 @@ export const loginSchema = zod.object({
 export const accountFormSchema = zod.object({
   name: zod
     .string({
-      required_error: 'Name is required',
+      required_error: 'Name must be not empty',
     })
     .min(3, {
-      message: 'Name must be at least 3 characters',
+      message: 'Name must be at least 3 characters long',
     })
     .max(50, {
-      message: 'Name must not exceed 50 characters',
+      message: 'Name must not be more than 50 characters long',
     }),
   email: zod
     .string({
-      required_error: 'Email is required',
+      required_error: 'Email must not be empty',
     })
-    .email({
-      message: 'Invalid email format',
-    }),
+    .email('Invalid email format'),
 });
 
 export const passwordFormSchema = zod.object({
