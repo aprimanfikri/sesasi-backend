@@ -54,7 +54,8 @@ export const updatePermissionSchema = zod.object({
     })
     .max(50, {
       message: 'Title must not be more than 50 characters long',
-    }),
+    })
+    .optional(),
   description: zod
     .string({
       required_error: 'Description must be not empty',

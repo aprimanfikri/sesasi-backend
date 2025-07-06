@@ -491,8 +491,8 @@
                             "role": {
                               "type": "string"
                             },
-                            "isVerified": {
-                              "type": "boolean"
+                            "status": {
+                              "type": "string"
                             },
                             "createdAt": {
                               "type": "string"
@@ -506,7 +506,7 @@
                             "name",
                             "email",
                             "role",
-                            "isVerified",
+                            "status",
                             "createdAt",
                             "updatedAt"
                           ]
@@ -532,7 +532,7 @@
                       "name": "Admin",
                       "email": "admin@mail.com",
                       "role": "ADMIN",
-                      "isVerified": true,
+                      "status": "ACTIVE",
                       "createdAt": "2025-07-04T11:51:17.499Z",
                       "updatedAt": "2025-07-04T11:51:17.499Z"
                     }
@@ -564,6 +564,388 @@
                 "example": {
                   "success": false,
                   "message": "Authorization token is required"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Internal Server Error"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update Account",
+        "deprecated": false,
+        "description": "Update Account",
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "John Doe Update",
+                "email": "emailjohndoe@mail.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Account updated successfully"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Name must be at least 3 characters"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Authorization token is required"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "User not found"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Email already in use"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Internal Server Error"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/auth/password": {
+      "patch": {
+        "summary": "Update Password",
+        "deprecated": false,
+        "description": "Update Password",
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  },
+                  "newPassword": {
+                    "type": "string"
+                  },
+                  "newConfirmPassword": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "password",
+                  "newPassword",
+                  "newConfirmPassword"
+                ]
+              },
+              "example": {
+                "password": "password1234",
+                "newPassword": "password123",
+                "newConfirmPassword": "password123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Password updated successfully"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Invalid Password"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "Authorization token is required"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": false,
+                  "message": "User not found"
                 }
               }
             },
@@ -647,8 +1029,8 @@
                               "role": {
                                 "type": "string"
                               },
-                              "isVerified": {
-                                "type": "boolean"
+                              "status": {
+                                "type": "string"
                               },
                               "createdAt": {
                                 "type": "string"
@@ -681,7 +1063,7 @@
                         "name": "User",
                         "email": "user@mail.com",
                         "role": "USER",
-                        "isVerified": false,
+                        "status": "ACTIVE",
                         "createdAt": "2025-07-04T11:51:17.516Z",
                         "updatedAt": "2025-07-04T11:51:17.516Z"
                       }
@@ -779,8 +1161,8 @@
                   "role": {
                     "type": "string"
                   },
-                  "isVerified": {
-                    "type": "boolean"
+                  "status": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -788,7 +1170,7 @@
                   "email",
                   "password",
                   "role",
-                  "isVerified"
+                  "status"
                 ]
               },
               "example": {
@@ -796,7 +1178,7 @@
                 "email": "johndoe@mail.com",
                 "password": "password123",
                 "role": "USER",
-                "isVerified": true
+                "status": "INACTIVE"
               }
             }
           }
@@ -833,8 +1215,8 @@
                             "role": {
                               "type": "string"
                             },
-                            "isVerified": {
-                              "type": "boolean"
+                            "status": {
+                              "type": "string"
                             },
                             "createdAt": {
                               "type": "string"
@@ -848,7 +1230,7 @@
                             "name",
                             "email",
                             "role",
-                            "isVerified",
+                            "status",
                             "createdAt",
                             "updatedAt"
                           ]
@@ -874,7 +1256,7 @@
                       "name": "John Doe",
                       "email": "johndoe@mail.com",
                       "role": "USER",
-                      "isVerified": true,
+                      "status": "INACTIVE",
                       "createdAt": "2025-07-04T12:07:00.345Z",
                       "updatedAt": "2025-07-04T12:07:00.345Z"
                     }
@@ -1078,8 +1460,8 @@
                             "role": {
                               "type": "string"
                             },
-                            "isVerified": {
-                              "type": "boolean"
+                            "status": {
+                              "type": "string"
                             },
                             "createdAt": {
                               "type": "string"
@@ -1093,7 +1475,7 @@
                             "name",
                             "email",
                             "role",
-                            "isVerified",
+                            "status",
                             "createdAt",
                             "updatedAt"
                           ]
@@ -1119,7 +1501,7 @@
                       "name": "User",
                       "email": "user@mail.com",
                       "role": "USER",
-                      "isVerified": false,
+                      "status": "ACTIVE",
                       "createdAt": "2025-07-04T11:51:17.516Z",
                       "updatedAt": "2025-07-04T11:51:17.516Z"
                     }
@@ -1296,8 +1678,8 @@
                             "role": {
                               "type": "string"
                             },
-                            "isVerified": {
-                              "type": "boolean"
+                            "status": {
+                              "type": "string"
                             },
                             "createdAt": {
                               "type": "string"
@@ -1311,7 +1693,7 @@
                             "name",
                             "email",
                             "role",
-                            "isVerified",
+                            "status",
                             "createdAt",
                             "updatedAt"
                           ]
@@ -1337,7 +1719,7 @@
                       "name": "John doe",
                       "email": "johndoes@mail.com",
                       "role": "USER",
-                      "isVerified": true,
+                      "status": "ACTIVE",
                       "createdAt": "2025-07-04T12:07:00.345Z",
                       "updatedAt": "2025-07-04T12:08:38.629Z"
                     }

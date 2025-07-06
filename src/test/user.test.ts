@@ -29,7 +29,7 @@ describe('Create User', () => {
       email: `${Date.now().toString()}@gmail.com`,
       password: Date.now().toString(),
       role: 'USER',
-      isVerified: true,
+      status: 'ACTIVE',
     };
     const response = await request(app)
       .post('/api/v1/user')
@@ -47,7 +47,7 @@ describe('Create User', () => {
       email: ADMIN_EMAIL,
       password: Date.now().toString(),
       role: 'USER',
-      isVerified: true,
+      status: 'ACTIVE',
     };
     const response = await request(app)
       .post('/api/v1/user')
@@ -63,7 +63,7 @@ describe('Create User', () => {
       email: `${Date.now().toString()}@gmail.com`,
       password: Date.now().toString(),
       role: 'USER',
-      isVerified: true,
+      status: 'ACTIVE',
     };
     const response = await request(app)
       .post('/api/v1/user')

@@ -1,5 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import { loginSchema, registerSchema } from '../validations/auth';
+import {
+  accountFormSchema,
+  loginSchema,
+  passwordFormSchema,
+  registerSchema,
+} from '../validations/auth';
 import prisma from '../libs/prisma';
 import ApiError from '../utils/error';
 import { hashSync, compareSync } from 'bcryptjs';
@@ -32,7 +37,7 @@ export const registerUser = async (
         email: email.toLowerCase(),
         password: hash,
         role: 'USER',
-        isVerified: false,
+        status: 'INACTIVE',
       },
     });
 
@@ -69,7 +74,7 @@ export const loginUser = async (
       throw new ApiError('Invalid Password', 400);
     }
 
-    if (!user.isVerified) {
+    if (!user.status) {
       throw new ApiError('Email not verified', 403);
     }
 
@@ -87,9 +92,108 @@ export const loginUser = async (
 
 export const checkUser = async (req: Request, res: Response) => {
   const user = req.user;
+
   res.status(200).json({
     success: true,
     message: 'Authenticated successfully',
-    data: { user },
+    data: {
+      user: {
+        id: user?.id,
+        name: user?.name,
+        email: user?.email,
+        role: user?.role,
+        status: user?.status,
+      },
+    },
   });
+};
+
+export const updateAccount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = req.user;
+
+  try {
+    const { name, email } = accountFormSchema.parse(req.body);
+
+    const exist = await prisma.user.findUnique({
+      where: {
+        email: email.toLowerCase(),
+      },
+    });
+
+    if (exist && exist.id !== user?.id) {
+      throw new ApiError('Email already in use', 409);
+    }
+
+    await prisma.user.update({
+      where: {
+        id: user?.id,
+      },
+      data: {
+        name,
+        email: email.toLowerCase(),
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Account updated successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatePassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = req.user;
+
+  try {
+    const { password, newPassword, newConfirmPassword } =
+      passwordFormSchema.parse(req.body);
+
+    if (newPassword !== newConfirmPassword) {
+      throw new ApiError(
+        'New password and confirm password must be the same',
+        400
+      );
+    }
+
+    const match = compareSync(password, user?.password!);
+
+    if (!match) {
+      throw new ApiError('Invalid Password', 400);
+    }
+
+    const isSamePassword = compareSync(newPassword, user?.password!);
+
+    if (isSamePassword) {
+      throw new ApiError(
+        'New password must be different from current password',
+        400
+      );
+    }
+
+    await prisma.user.update({
+      where: {
+        id: user?.id,
+      },
+      data: {
+        password: hashSync(newPassword),
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Password updated successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
 };

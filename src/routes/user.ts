@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../middlewares/authenticate';
-import { isAdmin } from '../middlewares/role';
+import { isAdmin, isAdminOrVerificator } from '../middlewares/role';
 import {
   createUser,
   deleteUser,
@@ -17,7 +17,7 @@ user.route('/').get(getAllUsers).post(isAdmin, createUser);
 user
   .route('/:id')
   .get(getUserById)
-  .patch(isAdmin, updateUser)
+  .patch(isAdminOrVerificator, updateUser)
   .delete(isAdmin, deleteUser);
 
 export default user;

@@ -7,7 +7,7 @@ import { User } from '@prisma/client';
 
 declare module 'express' {
   interface Request {
-    user?: Omit<User, 'password'>;
+    user?: User;
   }
 }
 
@@ -32,15 +32,6 @@ const authenticate = async (
 
     const user = await prisma.user.findUnique({
       where: { id: payload.id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        isVerified: true,
-        createdAt: true,
-        updatedAt: true,
-      },
     });
 
     if (!user) {

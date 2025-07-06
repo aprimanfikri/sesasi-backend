@@ -1,4 +1,4 @@
-import { UserRole } from '@prisma/client';
+import { UserRole, UserStatus } from '@prisma/client';
 import * as zod from 'zod';
 
 export const createUserSchema = zod.object({
@@ -33,8 +33,8 @@ export const createUserSchema = zod.object({
   role: zod.nativeEnum(UserRole, {
     required_error: 'Role must be not empty',
   }),
-  isVerified: zod.boolean({
-    required_error: 'isVerified must be not empty',
+  status: zod.nativeEnum(UserStatus, {
+    required_error: 'Status must be not empty',
   }),
 });
 
@@ -74,9 +74,9 @@ export const updateUserSchema = zod.object({
       required_error: 'Role must be not empty',
     })
     .optional(),
-  isVerified: zod
-    .boolean({
-      required_error: 'isVerified must be not empty',
+  status: zod
+    .nativeEnum(UserStatus, {
+      required_error: 'Status must be not empty',
     })
     .optional(),
 });

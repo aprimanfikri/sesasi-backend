@@ -13,7 +13,7 @@ const main = async () => {
       email: process.env.ADMIN_EMAIL as string,
       password: adminHash,
       role: 'ADMIN',
-      isVerified: true,
+      status: 'ACTIVE',
     },
   });
 
@@ -23,7 +23,7 @@ const main = async () => {
       email: process.env.USER_VERIFIED_EMAIL as string,
       password: userHash,
       role: 'USER',
-      isVerified: true,
+      status: 'ACTIVE',
     },
   });
 
@@ -33,7 +33,7 @@ const main = async () => {
       email: process.env.USER_VERIFIED_EMAIL_TWO as string,
       password: userHash,
       role: 'USER',
-      isVerified: true,
+      status: 'ACTIVE',
     },
   });
 
@@ -43,7 +43,7 @@ const main = async () => {
       email: process.env.USER_UNVERIFIED_EMAIL as string,
       password: userHash,
       role: 'USER',
-      isVerified: false,
+      status: 'INACTIVE',
     },
   });
 

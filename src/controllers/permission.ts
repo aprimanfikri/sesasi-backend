@@ -8,7 +8,11 @@ import {
 } from '../validations/permission';
 
 export const getAllPermissions = async (_req: Request, res: Response) => {
-  const permissions = await prisma.permission.findMany();
+  const permissions = await prisma.permission.findMany({
+    include: {
+      user: true,
+    },
+  });
 
   res.status(200).json({
     success: true,

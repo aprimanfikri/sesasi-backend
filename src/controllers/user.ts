@@ -11,7 +11,7 @@ export const getAllUsers = async (_req: Request, res: Response) => {
       name: true,
       email: true,
       role: true,
-      isVerified: true,
+      status: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -42,7 +42,7 @@ export const getUserById = async (
         name: true,
         email: true,
         role: true,
-        isVerified: true,
+        status: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -68,7 +68,7 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const { name, email, password, role, isVerified } = createUserSchema.parse(
+    const { name, email, password, role, status } = createUserSchema.parse(
       req.body
     );
 
@@ -90,14 +90,14 @@ export const createUser = async (
         email: email.toLowerCase(),
         password: hash,
         role,
-        isVerified,
+        status,
       },
       select: {
         id: true,
         name: true,
         email: true,
         role: true,
-        isVerified: true,
+        status: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -129,7 +129,7 @@ export const updateUser = async (
       throw new ApiError('User not found', 404);
     }
 
-    const { name, email, password, role, isVerified } = updateUserSchema.parse(
+    const { name, email, password, role, status } = updateUserSchema.parse(
       req.body
     );
 
@@ -158,14 +158,14 @@ export const updateUser = async (
         email: email ? email.toLowerCase() : undefined,
         password: updatedPassword,
         role: role ?? undefined,
-        isVerified: isVerified ?? undefined,
+        status: status ?? undefined,
       },
       select: {
         id: true,
         name: true,
         email: true,
         role: true,
-        isVerified: true,
+        status: true,
         createdAt: true,
         updatedAt: true,
       },
